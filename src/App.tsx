@@ -1,27 +1,29 @@
 import React, { Component } from "react";
-import UserMonster from "./components/userMonster";
-import GamePlay from "./interfaces/gamePlay.interface";
+import { connect } from "react-redux";
+import { contactsFetched } from "./actions";
 import "./App.css";
 
-class App extends Component<{}, GamePlay> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      preGameConfig: true,
-      fightStage: false,
-      levelUp: false,
-      endGame: false
-    };
+class App extends Component<{}, {}> {
+  componentDidMount() {
+    fetch("https://randomuser.me/api/?format=json&results=10")
+      .then(res => res.json())
+      .then(json => this.props.contactsFetched(json.results));
   }
-  render() {
-    const { preGameConfig } = this.state;
 
+  render() {
     return (
       <div className="App">
-        <UserMonster preGameConfig={preGameConfig} />
+        <h1>Hello {this.props.contacts}</h1>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: { contacts: any }) => {
+  return {
+    contacts: state.contacts
+  };
+};
+const mapDispatchToProps = { contactsFetched };
+
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

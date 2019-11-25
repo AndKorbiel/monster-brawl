@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeName } from "../redux/actions/index";
+import { MainStore, localName } from '../types'
+import { changeName } from "../redux/actions";
 
-class Main extends Component {
-    constructor(props) {
+class Main extends Component<{}, localName> {
+    constructor(props : localName) {
         super(props);
         this.state = {
             isWorking: true,
-            localName: ''
+            localName: '',
         }
     }
 
-    handleChange = e => {
+    handleChange = (e : React.FormEvent<HTMLInputElement>) : void => {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
 
-    handleSubmit = e => {
+    handleSubmit = (e : React.FormEvent<HTMLInputElement>) : void => {
         e.preventDefault();
         const { localName } = this.state;
         this.props.changeName(localName);
@@ -46,7 +47,7 @@ class Main extends Component {
     }
 }
 
-const select = state => {
+const select = (state : MainStore) => {
     return {
         name: state.name
     }

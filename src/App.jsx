@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import Main from "./components/main";
-import Sidebar from './components/side';
+import MonsterConfigurator from "./components/monsterConfigurator";
 import "./App.css";
 
 class App extends Component {
-
   render() {
-
     return (
       <div className="App">
-        <Main/>
-        <Sidebar/>
+        <MonsterConfigurator />
       </div>
     );
   }

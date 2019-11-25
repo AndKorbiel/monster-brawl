@@ -1,12 +1,23 @@
-import { CHANGE_NAME } from "../actions/index";
+import { CHANGE_NAME, GENERATE_NEW_NAME, CHANGE_LOOK } from "../actions/index";
 
 const initialState = {
-  name: "Andzs"
+  name: "Andzs",
+  monsetrsImg: ["monster1.png", "monster2.png"],
+  look: 0
 };
 
 export function mainReducer(state = initialState, action) {
-  if (action.type === CHANGE_NAME) {
-    return { ...state, name: action.payload };
+  switch (action.type) {
+    case CHANGE_NAME: {
+      return { ...state, name: action.payload };
+    }
+    case GENERATE_NEW_NAME: {
+      return { ...state, name: action.payload };
+    }
+    case CHANGE_LOOK: {
+      return { ...state, look: action.payload };
+    }
+    default:
+      return state;
   }
-  return state;
 }

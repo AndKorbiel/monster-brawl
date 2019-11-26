@@ -42,3 +42,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+// Important questions //
+-> how to organize state and separate it into objects?
+-> is it good to store gameMode in array or just as a string?
+-> should I separate display components from components handling actions?

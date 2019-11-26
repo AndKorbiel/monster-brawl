@@ -9,9 +9,8 @@ export const generateNewNameEffect = () => {
   };
 };
 
-export const changeLookEffect = () => {
+export const changeLookEffect = (value) => {
   return dispatch => {
-    let i = 1;
-    dispatch(changeLook([i]));
+    dispatch(changeLook([value]));
   };
 };

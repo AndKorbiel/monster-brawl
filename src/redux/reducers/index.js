@@ -1,9 +1,14 @@
 import { CHANGE_NAME, GENERATE_NEW_NAME, CHANGE_LOOK } from "../actions/index";
 
 const initialState = {
-  name: "Andzs",
-  monsetrsImg: ["monster1.png", "monster2.png"],
-  look: 0
+      gameMode: "Preconfig",
+      name: "Moonster",
+      monsterImg: ["monster1.png", "monster2.png", "monster3.png"],
+      lookVersion: 0,
+      level: 1,
+      attackPoints: 5,
+      defencePoints: 5,
+      lifePoints: 20
 };
 
 export function mainReducer(state = initialState, action) {
@@ -15,7 +20,7 @@ export function mainReducer(state = initialState, action) {
       return { ...state, name: action.payload };
     }
     case CHANGE_LOOK: {
-      return { ...state, look: action.payload };
+      return { ...state, lookVersion: action.payload };
     }
     default:
       return state;

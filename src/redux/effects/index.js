@@ -1,4 +1,9 @@
-import { generateNewName, changeLook } from "../actions/index";
+import {
+  generateNewName,
+  changeLook,
+  saveConfig,
+  spendLevelUpPoints
+} from "../actions/index";
 
 export const generateNewNameEffect = () => {
   return dispatch => {
@@ -9,8 +14,20 @@ export const generateNewNameEffect = () => {
   };
 };
 
-export const changeLookEffect = (value) => {
+export const changeLookEffect = value => {
   return dispatch => {
     dispatch(changeLook([value]));
+  };
+};
+
+export const saveConfigEffect = () => {
+  return dispatch => {
+    dispatch(saveConfig());
+  };
+};
+
+export const spendLevelUpPointsEffect = value => {
+  return dispatch => {
+    dispatch(spendLevelUpPoints(value));
   };
 };

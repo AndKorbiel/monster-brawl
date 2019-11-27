@@ -1,15 +1,7 @@
-export const CHANGE_NAME = "CHANGE_NAME";
 export const GENERATE_NEW_NAME = "GENERATE_NEW_NAME";
 export const CHANGE_LOOK = "CHANGE_LOOK";
 export const SAVE_CONFIG = "SAVE_CONFIG";
 export const SPEND_LEVEL_UP_POINTS = "SPEND_LEVEL_UP_POINTS";
-
-export function changeName(payload) {
-  return {
-    type: "CHANGE_NAME",
-    payload
-  };
-}
 
 export function generateNewName(payload) {
   return {

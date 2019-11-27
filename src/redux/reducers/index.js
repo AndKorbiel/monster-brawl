@@ -36,7 +36,9 @@ export function mainReducer(state = initialState, action) {
       return {
         ...state,
         levelUpPoints: action.payload.levelUpPoints,
-        attackPoints: action.payload.attackPoints
+        attackPoints: action.payload.attackPoints,
+        defencePoints: action.payload.defencePoints,
+          lifePoints: action.payload.lifePoints,
       };
     }
     default:

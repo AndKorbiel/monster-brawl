@@ -36,11 +36,34 @@ class MonsterConfigurator extends Component {
     this.props.changeLook(tempCounter);
   };
 
-  addAtackPoint = () => {
-    let newValue = this.props.levelUpPoints - 1;
-    let attackPoints = this.props.attackPoints + 1;
-    let value = { newValue, attackPoints };
-    this.props.spendLevelUpPoints(value);
+  addPoints = (event) => {
+      let name = event.target.name;
+      let { levelUpPoints, attackPoints, defencePoints, lifePoints  } = this.props;
+
+      if (this.props.levelUpPoints !== 0) {
+
+          switch (name) {
+              case 'addAttackPoints' : {
+                  attackPoints++;
+                  break;
+              }
+              case 'addDefencePoints' : {
+                  defencePoints++;
+                  break;
+              }
+              case 'addLifePoints' : {
+                  lifePoints++;
+                  break;
+              }
+              default : {
+                  break;
+              }
+          }
+
+          levelUpPoints--;
+          let value = {levelUpPoints, attackPoints, defencePoints, lifePoints};
+          this.props.spendLevelUpPoints(value);
+      }
   };
 
   render() {
@@ -106,11 +129,20 @@ class MonsterConfigurator extends Component {
         <p>Level: {level}</p>
         <p>Points to spend: {levelUpPoints}</p>
         <p>Attack: {attackPoints}</p>
-        <button name="attackPoints" onClick={this.addAtackPoint}>
+          <button name="removeAttackPoints" onClick={this.changeAttackPoints}>
+              -
+          </button>
+        <button name="addAttackPoints" onClick={this.addPoints}>
           +
         </button>
         <p>Defence: {defencePoints}</p>
+          <button name="addDefencePoints" onClick={this.addPoints}>
+              +
+          </button>
         <p>Life points: {lifePoints}</p>
+          <button name="addLifePoints" onClick={this.addPoints}>
+              +
+          </button>
         {$saveConfigButton}
       </div>
     );

@@ -6,6 +6,7 @@ import {
   saveConfigEffect,
   spendLevelUpPointsEffect
 } from "../redux/effects";
+import MonsterConfigDisplay from "./monsterConfiguratorDisplay";
 
 class MonsterConfigurator extends Component {
   constructor(props) {
@@ -127,7 +128,6 @@ class MonsterConfigurator extends Component {
     } = this.props;
       const { tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints } = this.state;
 
-
       const $generateNameButton =
       gameMode === "Preconfig" ? (
         <button name="generateName" onClick={generateNewName}>
@@ -164,39 +164,61 @@ class MonsterConfigurator extends Component {
         ""
       );
 
+      const $attackPointsButtons =
+          gameMode === "Preconfig" ? (
+              <div>
+                  <button name="removeAttackPoints" data-func="remove" onClick={this.addPoints}>
+                      -
+                  </button>
+                  <button name="addAttackPoints" data-func="add" onClick={this.addPoints}>
+                      +
+                  </button>
+              </div>
+
+          ) : (
+              ""
+          );
+
+      const $defencePointsButtons =
+          gameMode === "Preconfig" ? (
+              <div>
+                  <button name="removeDefencePoints" data-func="remove" onClick={this.addPoints}>
+                      -
+                  </button>
+                  <button name="addDefencePoints" onClick={this.addPoints}>
+                      +
+                  </button>
+              </div>
+
+          ) : (
+              ""
+          );
+
+      const $lifePointsButtons =
+          gameMode === "Preconfig" ? (
+              <div>
+                  <button name="removeLifePoints" data-func="remove" onClick={this.addPoints}>
+                      -
+                  </button>
+                  <button name="addLifePoints" onClick={this.addPoints}>
+                      +
+                  </button>
+              </div>
+
+          ) : (
+              ""
+          );
+
     return (
       <div className="config">
-        <p>{gameMode}</p>
-        <h2>Monster name: {name}</h2>
-        {$generateNameButton}
-        <p>Look and feel</p>
-        {$monsterLookPrevButton}
-        <img src={"./img/" + monsterImg[lookVersion]} className="look" />
-        {$monsterLookNextButton}
-        <p>Level: {level}</p>
-        <p>Points to spend: {tempLevelUpPoints}</p>
-        <p>Attack: {attackPoints + tempAttackPoints}</p>
-        <button name="removeAttackPoints" data-func="remove" onClick={this.addPoints}>
-          -
-        </button>
-        <button name="addAttackPoints" data-func="add" onClick={this.addPoints}>
-          +
-        </button>
-        <p>Defence: {defencePoints + tempDefencePoints}</p>
-          <button name="removeDefencePoints" data-func="remove" onClick={this.addPoints}>
-              -
-          </button>
-        <button name="addDefencePoints" onClick={this.addPoints}>
-          +
-        </button>
-        <p>Life points: {lifePoints + tempLifePoints}</p>
-          <button name="removeLifePoints" data-func="remove" onClick={this.addPoints}>
-              -
-          </button>
-        <button name="addLifePoints" onClick={this.addPoints}>
-          +
-        </button>
-        {$saveConfigButton}
+          <MonsterConfigDisplay gameMode={gameMode} name={name} $generateNameButton={$generateNameButton}
+                                $monsterLookPrevButton={$monsterLookPrevButton}
+                                $monsterLookNextButton={$monsterLookNextButton} monsterImg={monsterImg}
+                                lookVersion={lookVersion} level={level} tempLevelUpPoints={tempLevelUpPoints}
+                                attackPoints={attackPoints} tempAttackPoints={tempAttackPoints} $attackPointsButtons={$attackPointsButtons} $defencePointsButtons={$defencePointsButtons}
+                                defencePoints={defencePoints} tempDefencePoints={tempDefencePoints}
+                                lifePoints={lifePoints} tempLifePoints={tempLifePoints} $lifePointsButtons={$lifePointsButtons }
+                                $saveConfigButton={$saveConfigButton}/>
       </div>
     );
   }

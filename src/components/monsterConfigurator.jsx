@@ -11,9 +11,19 @@ class MonsterConfigurator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0
+        counter: 0,
+        tempAttackPoints: 0,
+        tempDefencePoints: 0,
+        tempLifePoints: 0,
+        tempLevelUpPoints: 0
     };
   }
+
+    componentDidMount() {
+        this.setState({
+            tempLevelUpPoints: this.props.levelUpPoints
+        })
+    }
 
   changeCounter = event => {
     let name = event.target.name;
@@ -37,32 +47,61 @@ class MonsterConfigurator extends Component {
   };
 
   addPoints = event => {
-    let name = event.target.name;
-    let { levelUpPoints, attackPoints, defencePoints, lifePoints } = this.props;
+      let name = event.target.name;
+      let attr = event.target.getAttribute('data-func');
+      let {levelUpPoints } = this.props;
+      let {tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints} = this.state;
 
-    if (this.props.levelUpPoints !== 0) {
-      switch (name) {
-        case "addAttackPoints": {
-          attackPoints++;
-          break;
-        }
-        case "addDefencePoints": {
-          defencePoints++;
-          break;
-        }
-        case "addLifePoints": {
-          lifePoints++;
-          break;
-        }
-        default: {
-          break;
-        }
+      if (attr === "remove") {
+          if (tempLevelUpPoints < levelUpPoints) {
+              switch (name) {
+                  case "removeAttackPoints": {
+                      tempAttackPoints--;
+                      break;
+                  }
+                  case "removeDefencePoints": {
+                      tempDefencePoints--;
+                      break;
+                  }
+                  case "removeLifePoints": {
+                      tempLifePoints--;
+                      break;
+                  }
+                  default: {
+                      break;
+                  }
+              }
+              tempLevelUpPoints++;
+          }
+      } else {
+          if (tempLevelUpPoints !== 0) {
+              switch (name) {
+                  case "addAttackPoints": {
+                      tempAttackPoints++;
+                      break;
+                  }
+                  case "addDefencePoints": {
+                      tempDefencePoints++;
+                      break;
+                  }
+                  case "addLifePoints": {
+                      tempLifePoints++;
+                      break;
+                  }
+                  default: {
+                      break;
+                  }
+              }
+              tempLevelUpPoints--;
+          }
       }
 
-      levelUpPoints--;
-      let value = { levelUpPoints, attackPoints, defencePoints, lifePoints };
-      this.props.spendLevelUpPoints(value);
-    }
+    this.setState({
+          tempAttackPoints,
+          tempDefencePoints,
+          tempLifePoints,
+          tempLevelUpPoints
+    })
   };
 
   render() {
@@ -77,10 +116,11 @@ class MonsterConfigurator extends Component {
       defencePoints,
       lifePoints,
       saveConfig,
-      levelUpPoints
     } = this.props;
+      const { tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints } = this.state;
 
-    const $generateNameButton =
+
+      const $generateNameButton =
       gameMode === "Preconfig" ? (
         <button name="generateName" onClick={generateNewName}>
           Generate new name
@@ -126,19 +166,25 @@ class MonsterConfigurator extends Component {
         <img src={"./img/" + monsterImg[lookVersion]} className="look" />
         {$monsterLookNextButton}
         <p>Level: {level}</p>
-        <p>Points to spend: {levelUpPoints}</p>
-        <p>Attack: {attackPoints}</p>
-        <button name="removeAttackPoints" onClick={this.changeAttackPoints}>
+        <p>Points to spend: {tempLevelUpPoints}</p>
+        <p>Attack: {attackPoints + tempAttackPoints}</p>
+        <button name="removeAttackPoints" data-func="remove" onClick={this.addPoints}>
           -
         </button>
-        <button name="addAttackPoints" onClick={this.addPoints}>
+        <button name="addAttackPoints" data-func="add" onClick={this.addPoints}>
           +
         </button>
-        <p>Defence: {defencePoints}</p>
+        <p>Defence: {defencePoints + tempDefencePoints}</p>
+          <button name="removeDefencePoints" data-func="remove" onClick={this.addPoints}>
+              -
+          </button>
         <button name="addDefencePoints" onClick={this.addPoints}>
           +
         </button>
-        <p>Life points: {lifePoints}</p>
+        <p>Life points: {lifePoints + tempLifePoints}</p>
+          <button name="removeLifePoints" data-func="remove" onClick={this.addPoints}>
+              -
+          </button>
         <button name="addLifePoints" onClick={this.addPoints}>
           +
         </button>

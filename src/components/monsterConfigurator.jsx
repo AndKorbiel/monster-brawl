@@ -49,29 +49,37 @@ class MonsterConfigurator extends Component {
   addPoints = event => {
       let name = event.target.name;
       let attr = event.target.getAttribute('data-func');
-      let {levelUpPoints } = this.props;
+      let {levelUpPoints, attackPoints, defencePoints, lifePoints } = this.props;
       let {tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints} = this.state;
 
       if (attr === "remove") {
           if (tempLevelUpPoints < levelUpPoints) {
               switch (name) {
                   case "removeAttackPoints": {
-                      tempAttackPoints--;
+                      if (tempAttackPoints + attackPoints > attackPoints ) {
+                          tempAttackPoints--;
+                          tempLevelUpPoints++;
+                      }
                       break;
                   }
                   case "removeDefencePoints": {
-                      tempDefencePoints--;
+                      if (tempDefencePoints + defencePoints > defencePoints ) {
+                          tempDefencePoints--;
+                          tempLevelUpPoints++;
+                      }
                       break;
                   }
                   case "removeLifePoints": {
-                      tempLifePoints--;
+                      if (tempLifePoints + lifePoints > lifePoints ) {
+                          tempLifePoints--;
+                          tempLevelUpPoints++;
+                      }
                       break;
                   }
                   default: {
                       break;
                   }
               }
-              tempLevelUpPoints++;
           }
       } else {
           if (tempLevelUpPoints !== 0) {

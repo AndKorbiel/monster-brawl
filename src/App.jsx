@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MonsterConfigurator from "./components/monsterConfigurator";
+import MonsterConfigurator from "./components/configurator/configurator-container";
 import "./App.css";
 
 class App extends Component {

@@ -7,7 +7,7 @@ import {
 
 export const generateNewNameEffect = () => {
   return dispatch => {
-    fetch("https://random-word-api.herokuapp.com/word?key=LVBO2PAN&number=1")
+    fetch("https://random-word-api.herokuapp.com/word?key=9QQUWG3P&number=1")
       .then(res => res.json())
       .then(myJSON => dispatch(generateNewName(myJSON)))
       .catch(err => console.log(err));

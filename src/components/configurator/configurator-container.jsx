@@ -5,10 +5,10 @@ import {
   changeLookEffect,
   saveConfigEffect,
   spendLevelUpPointsEffect
-} from "../redux/effects";
-import MonsterConfigDisplay from "./monsterConfiguratorDisplay";
+} from "../../redux/effects/index";
+import MonsterConfigDisplay from "./configator-view";
 
-class MonsterConfigurator extends Component {
+class ConfiguratorContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,97 +128,16 @@ class MonsterConfigurator extends Component {
     } = this.props;
       const { tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints } = this.state;
 
-      const $generateNameButton =
-      gameMode === "Preconfig" ? (
-        <button name="generateName" onClick={generateNewName}>
-          Generate new name
-        </button>
-      ) : (
-        ""
-      );
-
-    const $monsterLookPrevButton =
-      gameMode === "Preconfig" ? (
-        <button onClick={this.changeCounter} name="prev">
-          Prev
-        </button>
-      ) : (
-        ""
-      );
-
-    const $monsterLookNextButton =
-      gameMode === "Preconfig" ? (
-        <button onClick={this.changeCounter} name="next">
-          Next
-        </button>
-      ) : (
-        ""
-      );
-
-    const $saveConfigButton =
-      gameMode === "Preconfig" ? (
-        <button onClick={saveConfig} name="saveConfig">
-          Save
-        </button>
-      ) : (
-        ""
-      );
-
-      const $attackPointsButtons =
-          gameMode === "Preconfig" ? (
-              <div>
-                  <button name="removeAttackPoints" data-func="remove" onClick={this.addPoints}>
-                      -
-                  </button>
-                  <button name="addAttackPoints" data-func="add" onClick={this.addPoints}>
-                      +
-                  </button>
-              </div>
-
-          ) : (
-              ""
-          );
-
-      const $defencePointsButtons =
-          gameMode === "Preconfig" ? (
-              <div>
-                  <button name="removeDefencePoints" data-func="remove" onClick={this.addPoints}>
-                      -
-                  </button>
-                  <button name="addDefencePoints" onClick={this.addPoints}>
-                      +
-                  </button>
-              </div>
-
-          ) : (
-              ""
-          );
-
-      const $lifePointsButtons =
-          gameMode === "Preconfig" ? (
-              <div>
-                  <button name="removeLifePoints" data-func="remove" onClick={this.addPoints}>
-                      -
-                  </button>
-                  <button name="addLifePoints" onClick={this.addPoints}>
-                      +
-                  </button>
-              </div>
-
-          ) : (
-              ""
-          );
-
     return (
       <div className="config">
-          <MonsterConfigDisplay gameMode={gameMode} name={name} $generateNameButton={$generateNameButton}
-                                $monsterLookPrevButton={$monsterLookPrevButton}
-                                $monsterLookNextButton={$monsterLookNextButton} monsterImg={monsterImg}
-                                lookVersion={lookVersion} level={level} tempLevelUpPoints={tempLevelUpPoints}
-                                attackPoints={attackPoints} tempAttackPoints={tempAttackPoints} $attackPointsButtons={$attackPointsButtons} $defencePointsButtons={$defencePointsButtons}
+          <MonsterConfigDisplay gameMode={gameMode} name={name} generateNewName={generateNewName}
+                                changeCounter={this.changeCounter} monsterImg={monsterImg} lookVersion={lookVersion}
+                                level={level} tempLevelUpPoints={tempLevelUpPoints}
+                                attackPoints={attackPoints} tempAttackPoints={tempAttackPoints}
                                 defencePoints={defencePoints} tempDefencePoints={tempDefencePoints}
-                                lifePoints={lifePoints} tempLifePoints={tempLifePoints} $lifePointsButtons={$lifePointsButtons }
-                                $saveConfigButton={$saveConfigButton}/>
+                                lifePoints={lifePoints} tempLifePoints={tempLifePoints} saveConfig={saveConfig}
+                                addPoints={this.addPoints}
+          />
       </div>
     );
   }
@@ -255,4 +174,4 @@ const mapDisptachToProps = disptach => {
   };
 };
 
-export default connect(select, mapDisptachToProps)(MonsterConfigurator);
+export default connect(select, mapDisptachToProps)(ConfiguratorContainer);

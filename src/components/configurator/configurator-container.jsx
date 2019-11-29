@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   generateNewNameEffect,
   changeLookEffect,
-  saveConfigEffect,
+  changeGameModeEffect,
   spendLevelUpPointsEffect
 } from "../../redux/effects/index";
 import MonsterConfigDisplay from "./configator-view";
@@ -110,7 +110,18 @@ class ConfiguratorContainer extends Component {
           tempDefencePoints,
           tempLifePoints,
           tempLevelUpPoints
-    })
+    });
+  };
+
+    saveConfig = () => {
+      let {levelUpPoints, attackPoints, defencePoints, lifePoints } = this.props;
+      let {tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints} = this.state;
+      attackPoints = attackPoints + tempAttackPoints;
+      levelUpPoints = tempLevelUpPoints;
+      defencePoints = defencePoints + tempDefencePoints;
+      lifePoints = lifePoints + tempLifePoints;
+      this.props.spendLevelUpPoints({attackPoints, levelUpPoints, defencePoints, lifePoints})
+      this.props.changeGameMode()
   };
 
   render() {
@@ -135,8 +146,8 @@ class ConfiguratorContainer extends Component {
                                 level={level} tempLevelUpPoints={tempLevelUpPoints}
                                 attackPoints={attackPoints} tempAttackPoints={tempAttackPoints}
                                 defencePoints={defencePoints} tempDefencePoints={tempDefencePoints}
-                                lifePoints={lifePoints} tempLifePoints={tempLifePoints} saveConfig={saveConfig}
-                                addPoints={this.addPoints}
+                                lifePoints={lifePoints} tempLifePoints={tempLifePoints}
+                                addPoints={this.addPoints} saveConfig={this.saveConfig}
           />
       </div>
     );
@@ -165,8 +176,8 @@ const mapDisptachToProps = disptach => {
     changeLook: value => {
       disptach(changeLookEffect(value));
     },
-    saveConfig: () => {
-      disptach(saveConfigEffect());
+      changeGameMode: () => {
+      disptach(changeGameModeEffect());
     },
     spendLevelUpPoints: value => {
       disptach(spendLevelUpPointsEffect(value));

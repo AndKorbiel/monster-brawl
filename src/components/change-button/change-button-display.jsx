@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ChangeButton = (props) => {
+const ChangeButtonDisplay = (props) => {
     const { gameMode, name, methood, text, dataFunc } = props;
     const $changeButton =
         gameMode === "Preconfig" ? (
@@ -18,4 +18,4 @@ const ChangeButton = (props) => {
     )
 };
 
-export default ChangeButton;
+export default ChangeButtonDisplay;

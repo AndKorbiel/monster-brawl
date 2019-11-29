@@ -1,7 +1,7 @@
 import {
   GENERATE_NEW_NAME,
   CHANGE_LOOK,
-  SAVE_CONFIG,
+    CHANGE_GAME_MODE,
   SPEND_LEVEL_UP_POINTS
 } from "../actions/index";
 
@@ -29,8 +29,8 @@ export function mainReducer(state = initialState, action) {
         monsterConfig: monsterReducer(state.monsterConfig, action)
       };
     }
-    case SAVE_CONFIG: {
-      return { ...state, gameMode: "preFight" };
+    case CHANGE_GAME_MODE: {
+      return { ...state, gameMode: "preFight", monsterConfig: monsterReducer(state.monsterConfig, SPEND_LEVEL_UP_POINTS) };
     }
     default:
       return state;

@@ -1,7 +1,7 @@
 import {
   generateNewName,
   changeLook,
-  saveConfig,
+    changeGameMode,
   spendLevelUpPoints
 } from "../actions/index";
 
@@ -20,9 +20,9 @@ export const changeLookEffect = value => {
   };
 };
 
-export const saveConfigEffect = () => {
+export const changeGameModeEffect = () => {
   return dispatch => {
-    dispatch(saveConfig());
+    dispatch(changeGameMode());
   };
 };
 

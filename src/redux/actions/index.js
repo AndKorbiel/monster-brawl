@@ -1,6 +1,6 @@
 export const GENERATE_NEW_NAME = "GENERATE_NEW_NAME";
 export const CHANGE_LOOK = "CHANGE_LOOK";
-export const SAVE_CONFIG = "SAVE_CONFIG";
+export const CHANGE_GAME_MODE = "CHANGE_GAME_MODE";
 export const SPEND_LEVEL_UP_POINTS = "SPEND_LEVEL_UP_POINTS";
 
 export function generateNewName(payload) {
@@ -17,9 +17,9 @@ export function changeLook(payload) {
   };
 }
 
-export function saveConfig(payload) {
+export function changeGameMode(payload) {
   return {
-    type: "SAVE_CONFIG",
+    type: "CHANGE_GAME_MODE",
     payload
   };
 }

@@ -1,7 +1,7 @@
 import {
   GENERATE_NEW_NAME,
   CHANGE_LOOK,
-    CHANGE_GAME_MODE,
+  CHANGE_GAME_MODE,
   SPEND_LEVEL_UP_POINTS
 } from "../actions/index";
 
@@ -16,6 +16,13 @@ const initialState = {
     defencePoints: 5,
     lifePoints: 20,
     levelUpPoints: 5
+  },
+  cpuMonsterConfig: {
+    name: "CPU",
+    lookVersion: 0,
+    attackPoints: 5,
+    defencePoints: 5,
+    lifePoints: 20
   }
 };
 
@@ -30,7 +37,14 @@ export function mainReducer(state = initialState, action) {
       };
     }
     case CHANGE_GAME_MODE: {
-      return { ...state, gameMode: "preFight", monsterConfig: monsterReducer(state.monsterConfig, SPEND_LEVEL_UP_POINTS) };
+      return {
+        ...state,
+        gameMode: "preFight",
+        monsterConfig: monsterReducer(
+          state.monsterConfig,
+          SPEND_LEVEL_UP_POINTS
+        )
+      };
     }
     default:
       return state;
@@ -38,6 +52,31 @@ export function mainReducer(state = initialState, action) {
 }
 
 export function monsterReducer(state = initialState.monsterConfig, action) {
+  switch (action.type) {
+    case GENERATE_NEW_NAME: {
+      return { ...state, name: action.payload };
+    }
+    case CHANGE_LOOK: {
+      return { ...state, lookVersion: action.payload };
+    }
+    case SPEND_LEVEL_UP_POINTS: {
+      return {
+        ...state,
+        levelUpPoints: action.payload.levelUpPoints,
+        attackPoints: action.payload.attackPoints,
+        defencePoints: action.payload.defencePoints,
+        lifePoints: action.payload.lifePoints
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+export function cpuMonsterReducer(
+  state = initialState.cpuMonsterConfig,
+  action
+) {
   switch (action.type) {
     case GENERATE_NEW_NAME: {
       return { ...state, name: action.payload };

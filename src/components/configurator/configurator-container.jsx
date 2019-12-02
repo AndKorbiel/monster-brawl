@@ -120,7 +120,7 @@ class ConfiguratorContainer extends Component {
       levelUpPoints = tempLevelUpPoints;
       defencePoints = defencePoints + tempDefencePoints;
       lifePoints = lifePoints + tempLifePoints;
-      this.props.spendLevelUpPoints({attackPoints, levelUpPoints, defencePoints, lifePoints})
+      this.props.spendLevelUpPoints({user: "user", attackPoints, levelUpPoints, defencePoints, lifePoints});
       this.props.changeGameMode()
   };
 
@@ -134,8 +134,7 @@ class ConfiguratorContainer extends Component {
       level,
       attackPoints,
       defencePoints,
-      lifePoints,
-      saveConfig,
+      lifePoints
     } = this.props;
       const { tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints } = this.state;
 
@@ -168,19 +167,19 @@ const select = state => {
   };
 };
 
-const mapDisptachToProps = disptach => {
+const mapDisptachToProps = dispatch => {
   return {
     generateNewName: () => {
-      disptach(generateNewNameEffect());
+        dispatch(generateNewNameEffect('user'));
     },
     changeLook: value => {
-      disptach(changeLookEffect(value));
+        dispatch(changeLookEffect(value));
     },
       changeGameMode: () => {
-      disptach(changeGameModeEffect());
+          dispatch(changeGameModeEffect());
     },
     spendLevelUpPoints: value => {
-      disptach(spendLevelUpPointsEffect(value));
+        dispatch(spendLevelUpPointsEffect(value));
     }
   };
 };

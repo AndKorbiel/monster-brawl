@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MonsterConfigurator from "./components/configurator/configurator-container";
 import CpuMonsterGenerator from "./components/cpu-monsters-generator/cpu-monsters-container";
 import "./css/App.css";
+import ActionBox from "./components/actionBox/action-box-container";
 
 class App extends Component {
   render() {
@@ -12,7 +13,9 @@ class App extends Component {
             <div className="col-sm-4">
               <MonsterConfigurator />
             </div>
-            <div className="col-sm-4"></div>
+            <div className="col-sm-4">
+              <ActionBox />
+            </div>
             <div className="col-sm-4">
               <CpuMonsterGenerator />
             </div>

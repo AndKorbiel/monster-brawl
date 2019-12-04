@@ -24,7 +24,6 @@ const MonsterConfigDisplay = props => {
   } = props;
   return (
     <div className="monsterConfig">
-      <p>{gameMode}</p>
       <h2>Monster name: {name}</h2>
       <ChangeButtonDisplay
         gameMode={gameMode}

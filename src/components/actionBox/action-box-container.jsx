@@ -8,49 +8,89 @@ class ActionBox extends Component {
     this.state = {
       round: 1,
       attack: 0,
-        currentTurn: "player",
-        userTempDefencePoints: 0,
-        userTempLifePoints: 0,
-        cpuTempDefencePoints: 0,
-        cpuTempLifePoints: 0,
+      currentTurn: ["player", "cpu"],
+      userTempDefencePoints: 0,
+      userTempLifePoints: 0,
+      cpuTempDefencePoints: 0,
+      cpuTempLifePoints: 0
     };
   }
 
-  componentDidUpdate() {
-      if (this.props.gameMode === "preFight") {
-          const { userDefencePoints, userLifePoints, cpuDefencePoints, cpuLifePoints } = this.props;
-          this.setState({
-              userTempDefencePoints: userDefencePoints,
-              userTempLifePoints: userLifePoints,
-              cpuTempDefencePoints: cpuDefencePoints,
-              cpuTempLifePoints: cpuLifePoints
-          })
-      }
-  }
+  startBrawl = () => {
+    const {
+      userDefencePoints,
+      userLifePoints,
+      cpuDefencePoints,
+      cpuLifePoints
+    } = this.props;
+    this.setState({
+      userTempDefencePoints: userDefencePoints,
+      userTempLifePoints: userLifePoints,
+      cpuTempDefencePoints: cpuDefencePoints,
+      cpuTempLifePoints: cpuLifePoints
+    });
+    setInterval(() => {
+      this.calcAttack();
+    }, 2000);
+  };
+
+  random = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
 
   calcAttack = () => {
-    const { userAttackPoints } = this.props;
-    function random(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
+    const { userAttackPoints, cpuAttackPoints } = this.props;
+    let { round, currentTurn } = this.state;
+    let randomNumber;
+
+    this.chooseAttacker();
+    console.log(currentTurn);
+    if (currentTurn === "player") {
+      randomNumber = this.random(userAttackPoints / 2, userAttackPoints * 2);
+    } else {
+      randomNumber = this.random(cpuAttackPoints / 2, cpuAttackPoints * 2);
     }
-    const randomNumber = random(userAttackPoints / 2, userAttackPoints * 2);
+
+    round++;
+
     this.setState({
-      attack: randomNumber
+      attack: randomNumber,
+      round: round
     });
-      this.changeTurn()
+  };
+
+  chooseAttacker = () => {
+    let { round, currentTurn } = this.state;
+    if (round === 1) {
+      const starting = this.random(2, -1);
+      currentTurn = currentTurn[starting];
+      this.setState({
+        currentTurn: currentTurn
+      });
+    } else {
+      this.changeTurn();
+    }
   };
 
   changeTurn = () => {
-      const { currentTurn } = this.state;
-      let temp;
-      temp = (currentTurn === "player") ? "comp" : "player";
-      this.setState({
-          currentTurn: temp
-      })
+    const { currentTurn } = this.state;
+    let temp;
+    temp = currentTurn === "player" ? "cpu" : "player";
+    this.setState({
+      currentTurn: temp
+    });
   };
 
   render() {
-    const { round, attack, currentTurn, userTempDefencePoints, userTempLifePoints, cpuTempDefencePoints, cpuTempLifePoints} = this.state;
+    const {
+      round,
+      attack,
+      currentTurn,
+      userTempDefencePoints,
+      userTempLifePoints,
+      cpuTempDefencePoints,
+      cpuTempLifePoints
+    } = this.state;
     const { gameMode } = this.props;
 
     let instruction;
@@ -67,6 +107,7 @@ class ActionBox extends Component {
         instruction={instruction}
         round={round}
         attack={this.calcAttack}
+        startBrawl={this.startBrawl}
         displayAttack={attack}
         currentTurn={currentTurn}
         userTempDefencePoints={userTempDefencePoints}

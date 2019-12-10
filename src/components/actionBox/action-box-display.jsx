@@ -6,13 +6,14 @@ const ActionBoxDisplay = props => {
     instruction,
     round,
     attack,
-    displayAttack,
-    currentTurn,
+      userAttackPoints,
     userTempDefencePoints,
     userTempLifePoints,
+      cpuAttackPoints,
     cpuTempDefencePoints,
     cpuTempLifePoints,
-    startBrawl
+    startBrawl,
+      actionLog
   } = props;
 
   return (
@@ -22,17 +23,19 @@ const ActionBoxDisplay = props => {
       <h3>Round: {round}</h3>
       <button onClick={startBrawl}>Start brawl</button>
       <button onClick={attack}>Attack!</button>
-      <h4>
-        {currentTurn} attacks for: {displayAttack}
-      </h4>
+        <div>
+            {actionLog.map(el => <p>{el}</p>)}
+        </div>
       <div className="row">
         <div className="col-md-6">
           <p>Player</p>
+            <p>Attack: {userAttackPoints}</p>
           <p>Defence: {userTempDefencePoints}</p>
           <p>Life: {userTempLifePoints}</p>
         </div>
         <div className="col-md-6">
           <p>CPU</p>
+            <p>Attack: {cpuAttackPoints}</p>
           <p>Defence: {cpuTempDefencePoints}</p>
           <p>Life: {cpuTempLifePoints}</p>
         </div>

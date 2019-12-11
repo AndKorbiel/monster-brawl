@@ -68,39 +68,34 @@ class ActionBox extends Component {
         let {cpuTempLifePoints, cpuTempDefencePoints, userTempLifePoints, userTempDefencePoints } = this.state;
 
         let randomNumber;
+        let damageDone;
         if (currentPlayer === "player") {
             randomNumber = this.random(userAttackPoints / 2, userAttackPoints * 2);
 
-            if (randomNumber > cpuTempDefencePoints) {
-                cpuTempLifePoints = cpuTempLifePoints - (randomNumber - cpuTempDefencePoints);
-                cpuTempDefencePoints = 0;
-            } else {
-                cpuTempDefencePoints = cpuTempDefencePoints - randomNumber;
-            }
-
+            damageDone = this.damageMath(randomNumber, cpuTempDefencePoints, cpuTempLifePoints);
+            cpuTempDefencePoints = damageDone.userTempDefencePoints ;
+            cpuTempLifePoints = damageDone.userTempLifePoints;
         } else {
             randomNumber = this.random(cpuAttackPoints / 2, cpuAttackPoints * 2);
+            damageDone = this.damageMath(randomNumber, userTempDefencePoints, userTempLifePoints);
 
-            if (randomNumber > userTempDefencePoints) {
-                userTempLifePoints = userTempLifePoints - (randomNumber - userTempDefencePoints);
-                userTempDefencePoints = 0;
-            } else {
-                userTempDefencePoints = userTempDefencePoints - randomNumber;
-            }
+            userTempLifePoints = damageDone.userTempLifePoints;
+            userTempDefencePoints = damageDone.userTempDefencePoints;
         }
 
-        // function damageMath(userTempDefencePoints, userTempLifePoints) {
-        //     randomNumber = this.random(userAttackPoints / 2, userAttackPoints * 2);
-        //
-        //     if (randomNumber > userTempDefencePoints) {
-        //         userTempLifePoints = userTempLifePoints - (randomNumber - userTempDefencePoints);
-        //         userTempDefencePoints = 0;
-        //     } else {
-        //         userTempDefencePoints = userTempLifePoints - randomNumber;
-        //     }
-        // }
-
         return { randomNumber, cpuTempDefencePoints, cpuTempLifePoints, userTempLifePoints, userTempDefencePoints }
+    };
+
+    damageMath = (randomNumber, userTempDefencePoints, userTempLifePoints) => {
+
+        if (randomNumber > userTempDefencePoints) {
+            return {
+                userTempLifePoints : userTempLifePoints - (randomNumber - userTempDefencePoints),
+                userTempDefencePoints : 0
+            }
+        } else {
+            return  { userTempDefencePoints : userTempDefencePoints - randomNumber, userTempLifePoints : userTempLifePoints }
+        }
     };
 
   setCurrentPlayer = () => {

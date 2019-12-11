@@ -29,9 +29,9 @@ export const changeLookEffect = value => {
   };
 };
 
-export const changeGameModeEffect = () => {
+export const changeGameModeEffect = (value) => {
   return dispatch => {
-    dispatch(changeGameMode());
+    dispatch(changeGameMode(value));
   };
 };
 

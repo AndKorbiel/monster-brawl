@@ -47,7 +47,7 @@ export function mainReducer(state = initialState, action) {
     case CHANGE_GAME_MODE: {
       return {
         ...state,
-        gameMode: "preFight",
+        gameMode: action.payload,
         monsterConfig: monsterReducer(
           state.monsterConfig,
           SPEND_LEVEL_UP_POINTS

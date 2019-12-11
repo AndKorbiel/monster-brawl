@@ -1,6 +1,8 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import ActionBoxDisplay from "./action-box-display";
+import GameInstructionsDisplay from "../game-instructions/game-instructions-display";
+import {changeGameModeEffect} from "../../redux/effects";
 
 class ActionBox extends Component {
   constructor(props) {
@@ -130,7 +132,7 @@ class ActionBox extends Component {
           this.setState({
               endGame: true,
               winner: currentWinner
-          }, ()=> { this.actionLog(); });
+          }, ()=> { this.actionLog(); this.props.changeGameMode("levelUp") });
       }
   };
 
@@ -162,27 +164,33 @@ class ActionBox extends Component {
     let instruction;
 
     if (gameMode === "Preconfig") {
+
       instruction = "Please configure your Monster";
+       return (
+      <GameInstructionsDisplay gameMode={gameMode}
+                               instruction={instruction} />
+       )
     } else {
       instruction = "Prepare for brawl...!";
+        return (
+            <>
+                <GameInstructionsDisplay gameMode={gameMode}
+                                         instruction={instruction}/>
+                <ActionBoxDisplay
+                    round={round}
+                    attack={this.playRound}
+                    startBrawl={this.startBrawl}
+                    userAttackPoints={userAttackPoints}
+                    userTempDefencePoints={userTempDefencePoints}
+                    userTempLifePoints={userTempLifePoints}
+                    cpuAttackPoints={cpuAttackPoints}
+                    cpuTempDefencePoints={cpuTempDefencePoints}
+                    cpuTempLifePoints={cpuTempLifePoints}
+                    actionLog={actionLog}
+                />
+            </>
+        );
     }
-
-    return (
-      <ActionBoxDisplay
-        gameMode={gameMode}
-        instruction={instruction}
-        round={round}
-        attack={this.playRound}
-        startBrawl={this.startBrawl}
-        userAttackPoints={userAttackPoints}
-        userTempDefencePoints={userTempDefencePoints}
-        userTempLifePoints={userTempLifePoints}
-        cpuAttackPoints={cpuAttackPoints}
-        cpuTempDefencePoints={cpuTempDefencePoints}
-        cpuTempLifePoints={cpuTempLifePoints}
-        actionLog={actionLog}
-      />
-    );
   }
 }
 
@@ -198,4 +206,12 @@ const select = state => {
   };
 };
 
-export default connect(select)(ActionBox);
+const mapDispatchToProps = dispatch => {
+    return {
+        changeGameMode: value => {
+            dispatch(changeGameModeEffect(value));
+        },
+    }
+};
+
+export default connect(select, mapDispatchToProps)(ActionBox);

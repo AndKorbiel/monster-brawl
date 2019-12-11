@@ -62,21 +62,26 @@ class CpuMonsterGenerator extends Component {
   };
 
   render() {
-    const { monsterImg, level, name, attackPoints, defencePoints, lifePoints} = this.props;
+    const { gameMode, monsterImg, level, name, attackPoints, defencePoints, lifePoints} = this.props;
     const { cpuLookVersion } = this.state;
-    return (
-      <div className="config">
-        <MonsterConfigDisplay
-          monsterImg={monsterImg}
-          lookVersion={cpuLookVersion}
-          level={level}
-          name={name}
-          attackPoints={attackPoints}
-          defencePoints={defencePoints}
-          lifePoints={lifePoints}
-        />
-      </div>
-    );
+
+    if (gameMode !== "Preconfig") {
+        return (
+            <div className="config">
+                <MonsterConfigDisplay
+                    monsterImg={monsterImg}
+                    lookVersion={cpuLookVersion}
+                    level={level}
+                    name={name}
+                    attackPoints={attackPoints}
+                    defencePoints={defencePoints}
+                    lifePoints={lifePoints}
+                />
+            </div>
+        );
+    } else {
+        return null
+    }
   }
 }
 

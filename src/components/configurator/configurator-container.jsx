@@ -121,7 +121,7 @@ class ConfiguratorContainer extends Component {
       defencePoints = defencePoints + tempDefencePoints;
       lifePoints = lifePoints + tempLifePoints;
       this.props.spendLevelUpPoints({user: "user", attackPoints, levelUpPoints, defencePoints, lifePoints});
-      this.props.changeGameMode()
+      this.props.changeGameMode("preFight")
   };
 
   render() {
@@ -175,8 +175,8 @@ const mapDisptachToProps = dispatch => {
     changeLook: value => {
         dispatch(changeLookEffect(value));
     },
-      changeGameMode: () => {
-          dispatch(changeGameModeEffect());
+      changeGameMode: value => {
+          dispatch(changeGameModeEffect(value));
     },
     spendLevelUpPoints: value => {
         dispatch(spendLevelUpPointsEffect(value));

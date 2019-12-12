@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ActionBoxDisplay from "./action-box-display";
 import GameInstructionsDisplay from "../game-instructions/game-instructions-display";
-import {changeGameModeEffect} from "../../redux/effects";
+import {changeGameModeEffect, levelUpEffects} from "../../redux/effects";
 
 class ActionBox extends Component {
   constructor(props) {
@@ -132,8 +132,22 @@ class ActionBox extends Component {
           this.setState({
               endGame: true,
               winner: currentWinner
-          }, ()=> { this.actionLog(); this.props.changeGameMode("levelUp") });
+          }, ()=> {
+              this.actionLog();
+              setTimeout(()=>{
+                  if (currentWinner === "Player") {
+                      this.props.changeGameMode("levelUp")
+                  } else {
+                      this.props.changeGameMode("endGame")
+                  }
+              }, 3000)
+          });
       }
+  };
+
+  levelUp = () => {
+      this.props.levelUp(3);
+      this.props.changeGameMode("Preconfig")
   };
 
   actionLog = (attacker, damage, round) => {
@@ -164,13 +178,12 @@ class ActionBox extends Component {
     let instruction;
 
     if (gameMode === "Preconfig") {
-
       instruction = "Please configure your Monster";
        return (
       <GameInstructionsDisplay gameMode={gameMode}
                                instruction={instruction} />
        )
-    } else {
+    } else if (gameMode === "preFight") {
       instruction = "Prepare for brawl...!";
         return (
             <>
@@ -190,6 +203,23 @@ class ActionBox extends Component {
                 />
             </>
         );
+    } else if (gameMode === "levelUp") {
+        instruction = "You have win and level up";
+        return (
+            <>
+                <GameInstructionsDisplay gameMode={gameMode}
+                                         instruction={instruction}
+                                         levelUp={this.levelUp}/>
+            </>
+        )
+    } else if (gameMode === "endGame") {
+        instruction = "You have lost... want to play again?";
+        return (
+            <>
+                <GameInstructionsDisplay gameMode={gameMode}
+                                         instruction={instruction}/>
+            </>
+        )
     }
   }
 }
@@ -210,6 +240,9 @@ const mapDispatchToProps = dispatch => {
     return {
         changeGameMode: value => {
             dispatch(changeGameModeEffect(value));
+        },
+        levelUp: value => {
+            dispatch(levelUpEffects(value));
         },
     }
 };

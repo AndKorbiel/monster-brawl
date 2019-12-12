@@ -4,6 +4,7 @@ export const CHANGE_LOOK = "CHANGE_LOOK";
 export const CHANGE_GAME_MODE = "CHANGE_GAME_MODE";
 export const SPEND_LEVEL_UP_POINTS = "SPEND_LEVEL_UP_POINTS";
 export const GENERATE_CPU_MONSTER_STATS = "GENERATE_CPU_MONSTER_STATS";
+export const LEVEL_UP = "LEVEL_UP";
 
 export function generateNewUserName(payload) {
   return {
@@ -43,6 +44,13 @@ export function spendLevelUpPoints(payload) {
 export function generateCpuMonsterStats(payload) {
     return {
         type: "GENERATE_CPU_MONSTER_STATS",
+        payload
+    };
+}
+
+export function levelUp(payload) {
+    return {
+        type: "LEVEL_UP",
         payload
     };
 }

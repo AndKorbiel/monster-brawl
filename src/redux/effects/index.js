@@ -4,7 +4,8 @@ import {
   changeLook,
     changeGameMode,
   spendLevelUpPoints,
-    generateCpuMonsterStats
+    generateCpuMonsterStats,
+    levelUp
 } from "../actions/index";
 
 export const generateNewNameEffect = (value) => {
@@ -45,4 +46,10 @@ export const spendLevelUpPointsEffect = value => {
     }
 
   };
+};
+
+export const levelUpEffects = (value) => {
+    return dispatch => {
+        dispatch(levelUp(value));
+    };
 };

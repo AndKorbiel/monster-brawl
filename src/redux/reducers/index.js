@@ -1,10 +1,11 @@
 import {
     GENERATE_NEW_USER_NAME,
     GENERATE_NEW_CPU_NAME,
-  CHANGE_LOOK,
-  CHANGE_GAME_MODE,
-  SPEND_LEVEL_UP_POINTS,
-    GENERATE_CPU_MONSTER_STATS
+    CHANGE_LOOK,
+    CHANGE_GAME_MODE,
+    SPEND_LEVEL_UP_POINTS,
+    GENERATE_CPU_MONSTER_STATS,
+    LEVEL_UP
 } from "../actions/index";
 
 const initialState = {
@@ -32,7 +33,8 @@ export function mainReducer(state = initialState, action) {
   switch (action.type) {
     case GENERATE_NEW_USER_NAME:
     case CHANGE_LOOK:
-    case SPEND_LEVEL_UP_POINTS: {
+    case SPEND_LEVEL_UP_POINTS:
+      case LEVEL_UP:  {
       return {
         ...state,
         monsterConfig: monsterReducer(state.monsterConfig, action)
@@ -76,6 +78,13 @@ export function monsterReducer(state = initialState.monsterConfig, action) {
         lifePoints: action.payload.lifePoints
       };
     }
+      case LEVEL_UP: {
+        return {
+            ...state,
+            levelUpPoints: action.payload * state.level,
+            level: state.level + 1,
+        }
+      }
     default:
       return state;
   }

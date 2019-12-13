@@ -21,11 +21,13 @@ const initialState = {
     levelUpPoints: 5
   },
   cpuMonsterConfig: {
-    name: "CPU",
-    lookVersion: 0,
-    attackPoints: 5,
-    defencePoints: 5,
-    lifePoints: 20
+      name: "CPU",
+      lookVersion: 0,
+      level: 1,
+      attackPoints: 0,
+      defencePoints: 0,
+      lifePoints: 0,
+      levelUpPoints: 5,
   }
 };
 
@@ -37,7 +39,8 @@ export function mainReducer(state = initialState, action) {
       case LEVEL_UP:  {
       return {
         ...state,
-        monsterConfig: monsterReducer(state.monsterConfig, action)
+          cpuMonsterConfig: cpuMonsterReducer(state.cpuMonsterConfig, action),
+          monsterConfig: monsterReducer(state.monsterConfig, action),
       };
     }
     case GENERATE_NEW_CPU_NAME:
@@ -102,6 +105,13 @@ export function cpuMonsterReducer(state = initialState.cpuMonsterConfig, action)
               defencePoints: action.payload.defencePoints,
               lifePoints: action.payload.lifePoints
           };
+      }
+      case LEVEL_UP: {
+          return {
+              ...state,
+              levelUpPoints: action.payload * state.level,
+              level: state.level + 1,
+          }
       }
     default:
       return state;

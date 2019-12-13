@@ -26,6 +26,14 @@ class ConfiguratorContainer extends Component {
         })
     }
 
+    componentDidUpdate(prevProps) {
+      if (this.props.levelUpPoints != prevProps.levelUpPoints) {
+          this.setState({
+              tempLevelUpPoints: this.props.levelUpPoints
+          })
+      }
+    }
+
   changeCounter = event => {
     let name = event.target.name;
     let tempCounter = this.state.counter;

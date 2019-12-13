@@ -16,27 +16,36 @@ class ActionBox extends Component {
       cpuTempDefencePoints: 0,
       cpuTempLifePoints: 0,
       actionLog: ["Prepare for brawl!"],
-        endGame: false
+      endGame: false
     };
   }
 
-  startBrawl = () => {
-    const {
-      userDefencePoints,
-      userLifePoints,
-      cpuDefencePoints,
-      cpuLifePoints
-    } = this.props;
-    this.setState({
-      userTempDefencePoints: userDefencePoints,
-      userTempLifePoints: userLifePoints,
-      cpuTempDefencePoints: cpuDefencePoints,
-      cpuTempLifePoints: cpuLifePoints
-    });
-    // setInterval(() => {
-    //   this.playRound();
-    // }, 2000);
-  };
+  componentDidUpdate (prevProps) {
+      if (this.props.gameMode != prevProps.gameMode) {
+          this.setState({
+              actionLog: ["Prepare for brawl!"]
+          })
+      }
+  }
+
+    startBrawl = () => {
+        const {
+            userDefencePoints,
+            userLifePoints,
+            cpuDefencePoints,
+            cpuLifePoints
+        } = this.props;
+        this.setState({
+            endGame: false,
+            userTempDefencePoints: userDefencePoints,
+            userTempLifePoints: userLifePoints,
+            cpuTempDefencePoints: cpuDefencePoints,
+            cpuTempLifePoints: cpuLifePoints
+        });
+        // setInterval(() => {
+        //   this.playRound();
+        // }, 2000);
+    };
 
   random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -72,15 +81,15 @@ class ActionBox extends Component {
         let randomNumber;
         let damageDone;
         if (currentPlayer === "player") {
-            randomNumber = this.random(userAttackPoints / 2, userAttackPoints * 2);
+            randomNumber = this.random(userAttackPoints / 1, userAttackPoints * 1.4);
 
             damageDone = this.damageMath(randomNumber, cpuTempDefencePoints, cpuTempLifePoints);
             cpuTempDefencePoints = damageDone.userTempDefencePoints ;
             cpuTempLifePoints = damageDone.userTempLifePoints;
         } else {
-            randomNumber = this.random(cpuAttackPoints / 2, cpuAttackPoints * 2);
-            damageDone = this.damageMath(randomNumber, userTempDefencePoints, userTempLifePoints);
+            randomNumber = this.random(cpuAttackPoints / 1, cpuAttackPoints * 1.4);
 
+            damageDone = this.damageMath(randomNumber, userTempDefencePoints, userTempLifePoints);
             userTempLifePoints = damageDone.userTempLifePoints;
             userTempDefencePoints = damageDone.userTempDefencePoints;
         }
@@ -90,13 +99,16 @@ class ActionBox extends Component {
 
     damageMath = (randomNumber, userTempDefencePoints, userTempLifePoints) => {
 
-        if (randomNumber > userTempDefencePoints) {
+        let blockChance = (userTempDefencePoints / randomNumber) / 1.4;
+        let random = Math.random()
+
+        if (random > blockChance) {
             return {
-                userTempLifePoints : userTempLifePoints - (randomNumber - userTempDefencePoints),
-                userTempDefencePoints : 0
+                userTempLifePoints : userTempLifePoints - randomNumber,
+                userTempDefencePoints : userTempDefencePoints
             }
         } else {
-            return  { userTempDefencePoints : userTempDefencePoints - randomNumber, userTempLifePoints : userTempLifePoints }
+            return  { userTempDefencePoints : userTempDefencePoints, userTempLifePoints : userTempLifePoints }
         }
     };
 
@@ -131,7 +143,14 @@ class ActionBox extends Component {
 
           this.setState({
               endGame: true,
-              winner: currentWinner
+              winner: currentWinner,
+              round: 0,
+              attack: 0,
+              currentTurn: ["player", "cpu"],
+              userTempDefencePoints: 0,
+              userTempLifePoints: 0,
+              cpuTempDefencePoints: 0,
+              cpuTempLifePoints: 0,
           }, ()=> {
               this.actionLog();
               setTimeout(()=>{

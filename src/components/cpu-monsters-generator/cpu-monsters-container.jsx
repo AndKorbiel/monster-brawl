@@ -16,15 +16,43 @@ class CpuMonsterGenerator extends Component {
   }
 
   componentDidMount() {
-    let num = Math.floor(Math.random() * (2+ 1));
-    this.setState({
-      ...this.state,
-      cpuLookVersion: num
-    });
+      this.initCpuMonster();
+      let {attackPoints, defencePoints, lifePoints} = this.props;
 
-    this.generateMonsterStatistics();
-    this.props.generateNewName();
+      for (let i = 0; i < 30; i++) {
+          let random = Math.floor(Math.random() * (2 + 1));
+          switch (random) {
+              case 0 :
+                  attackPoints++;
+                  break;
+              case 1 :
+                  defencePoints++;
+                  break;
+              case 2 :
+                  lifePoints++;
+                  break;
+              default:
+                  break;
+          }
+      }
+      this.props.spendLevelUpPoints({attackPoints, defencePoints, lifePoints});
   }
+
+    componentDidUpdate (prevProps) {
+        if (this.props.gameMode != prevProps.gameMode && this.props.gameMode === "preFight") {
+            this.initCpuMonster();
+            this.generateMonsterStatistics();
+        }
+    }
+
+  initCpuMonster = () => {
+      let num = Math.floor(Math.random() * (2+ 1));
+      this.setState({
+          ...this.state,
+          cpuLookVersion: num
+      });
+      this.props.generateNewName();
+  };
 
   generateMonsterStatistics = () => {
       let {levelUpPoints, attackPoints, defencePoints, lifePoints} = this.props;
@@ -88,13 +116,13 @@ class CpuMonsterGenerator extends Component {
 const select = state => {
   return {
     gameMode: state.gameMode,
-    level: state.monsterConfig.level,
-    levelUpPoints: state.monsterConfig.levelUpPoints,
+    level: state.cpuMonsterConfig.level,
     monsterImg: state.monsterConfig.monsterImg,
       name: state.cpuMonsterConfig.name,
       attackPoints: state.cpuMonsterConfig.attackPoints,
       defencePoints: state.cpuMonsterConfig.defencePoints,
       lifePoints: state.cpuMonsterConfig.lifePoints,
+      levelUpPoints: state.cpuMonsterConfig.levelUpPoints,
   };
 };
 

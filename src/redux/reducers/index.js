@@ -9,7 +9,7 @@ import {
 } from "../actions/index";
 
 const initialState = {
-  gameMode: "Preconfig",
+  gameMode: "Pre-config",
   monsterConfig: {
     name: "Moonster",
     monsterImg: ["monster1.png", "monster2.png", "monster3.png"],

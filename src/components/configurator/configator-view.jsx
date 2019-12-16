@@ -20,7 +20,8 @@ const MonsterConfigDisplay = props => {
     lifePoints,
     tempLifePoints,
     addPoints,
-    saveConfig
+    saveConfig,
+      disabled
   } = props;
   return (
     <div className="monsterConfig">
@@ -31,7 +32,7 @@ const MonsterConfigDisplay = props => {
         name={"generateNewName"}
         text={"Generate new name"}
       />
-      {gameMode === "Preconfig" ? <p>Please customize your Moonster</p> : ""}
+      {gameMode === "Pre-config" ? <p>Please customize your Moonster</p> : ""}
       <div className="look">
         <ChangeButtonDisplay
           gameMode={gameMode}
@@ -53,7 +54,7 @@ const MonsterConfigDisplay = props => {
         staticValue={level}
         tempValue={0}
       />
-      {gameMode === "Preconfig" ? (
+      {gameMode === "Pre-config" ? (
         <StatsDisplay
           gameMode={gameMode}
           name={"Points to spend"}
@@ -140,6 +141,7 @@ const MonsterConfigDisplay = props => {
         methood={saveConfig}
         name={"saveConfig"}
         text={"Save config"}
+        disabled={disabled}
       />
     </div>
   );

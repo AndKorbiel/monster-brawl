@@ -159,9 +159,9 @@ class ActionBox extends Component {
               this.actionLog();
               setTimeout(()=>{
                   if (currentWinner === "Player") {
-                      this.props.changeGameMode("levelUp")
+                      this.props.changeGameMode("Level-up")
                   } else {
-                      this.props.changeGameMode("endGame")
+                      this.props.changeGameMode("End-game")
                   }
               }, 3000)
           });
@@ -170,7 +170,11 @@ class ActionBox extends Component {
 
   levelUp = () => {
       this.props.levelUp(3);
-      this.props.changeGameMode("Preconfig")
+      this.props.changeGameMode("Pre-config")
+  };
+
+  restart = () => {
+      window.location.reload();
   };
 
   actionLog = (attacker, damage, round) => {
@@ -200,7 +204,7 @@ class ActionBox extends Component {
 
     let instruction;
 
-    if (gameMode === "Preconfig") {
+    if (gameMode === "Pre-config") {
       instruction = "Please configure your Monster";
        return (
       <GameInstructionsDisplay gameMode={gameMode}
@@ -226,7 +230,7 @@ class ActionBox extends Component {
                 />
             </>
         );
-    } else if (gameMode === "levelUp") {
+    } else if (gameMode === "Level-up") {
         instruction = "You have win and level up";
         return (
             <>
@@ -235,12 +239,13 @@ class ActionBox extends Component {
                                          levelUp={this.levelUp}/>
             </>
         )
-    } else if (gameMode === "endGame") {
+    } else if (gameMode === "End-game") {
         instruction = "You have lost... want to play again?";
         return (
             <>
                 <GameInstructionsDisplay gameMode={gameMode}
-                                         instruction={instruction}/>
+                                         instruction={instruction}
+                                         restart={this.restart}/>
             </>
         )
     }

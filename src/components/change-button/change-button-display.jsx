@@ -1,10 +1,10 @@
 import React from 'react';
 
 const ChangeButtonDisplay = (props) => {
-    const { gameMode, name, methood, text, dataFunc } = props;
+    const { gameMode, name, methood, text, dataFunc, disabled } = props;
     const $changeButton =
-        gameMode === "Preconfig" ? (
-            <button name={name} onClick={methood} data-func={dataFunc}>
+        gameMode === "Pre-config" ? (
+            <button name={name} onClick={methood} data-func={dataFunc} disabled={disabled}>
                 {text}
             </button>
         ) : (

@@ -146,6 +146,8 @@ class ConfiguratorContainer extends Component {
     } = this.props;
       const { tempAttackPoints, tempDefencePoints, tempLifePoints, tempLevelUpPoints } = this.state;
 
+      let disabled = tempLevelUpPoints !== 0 ? true : false;
+
     return (
       <div className="config">
           <MonsterConfigDisplay gameMode={gameMode} name={name} generateNewName={generateNewName}
@@ -154,7 +156,7 @@ class ConfiguratorContainer extends Component {
                                 attackPoints={attackPoints} tempAttackPoints={tempAttackPoints}
                                 defencePoints={defencePoints} tempDefencePoints={tempDefencePoints}
                                 lifePoints={lifePoints} tempLifePoints={tempLifePoints}
-                                addPoints={this.addPoints} saveConfig={this.saveConfig}
+                                addPoints={this.addPoints} saveConfig={this.saveConfig} disabled={disabled}
           />
       </div>
     );

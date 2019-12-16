@@ -3,7 +3,7 @@ import React from 'react';
 const StatsDisplay = (props) => {
     const { gameMode, name, staticValue, tempValue } = props;
     const $statsDisplay =
-        gameMode === "Preconfig" ? (
+        gameMode === "Pre-config" ? (
             <p>{name}: {staticValue + tempValue}</p>
         ) : (
             <p>{name}: {staticValue}</p>

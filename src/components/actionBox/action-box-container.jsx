@@ -15,6 +15,7 @@ class ActionBox extends Component {
       userTempLifePoints: 0,
       cpuTempDefencePoints: 0,
       cpuTempLifePoints: 0,
+        block: false,
       actionLog: ["Prepare for brawl!"],
       endGame: false
     };
@@ -67,6 +68,7 @@ class ActionBox extends Component {
               userTempLifePoints: calcDamage.userTempLifePoints,
               userTempDefencePoints: calcDamage.userTempDefencePoints,
               currentTurn: currentPlayer,
+              block: calcDamage.block
           }, () => {
               this.actionLog(this.state.currentTurn, this.state.attack, this.state.round);
               this.winingConditionChecker()
@@ -76,39 +78,41 @@ class ActionBox extends Component {
 
     calcDamage = (currentPlayer) => {
         const {userAttackPoints, cpuAttackPoints} = this.props;
-        let {cpuTempLifePoints, cpuTempDefencePoints, userTempLifePoints, userTempDefencePoints } = this.state;
+        let {cpuTempLifePoints, cpuTempDefencePoints, userTempLifePoints, userTempDefencePoints, block } = this.state;
 
         let randomNumber;
         let damageDone;
+
         if (currentPlayer === "player") {
             randomNumber = this.random(userAttackPoints / 1, userAttackPoints * 1.4);
-
             damageDone = this.damageMath(randomNumber, cpuTempDefencePoints, cpuTempLifePoints);
             cpuTempDefencePoints = damageDone.userTempDefencePoints ;
             cpuTempLifePoints = damageDone.userTempLifePoints;
         } else {
             randomNumber = this.random(cpuAttackPoints / 1, cpuAttackPoints * 1.4);
-
             damageDone = this.damageMath(randomNumber, userTempDefencePoints, userTempLifePoints);
             userTempLifePoints = damageDone.userTempLifePoints;
             userTempDefencePoints = damageDone.userTempDefencePoints;
         }
 
-        return { randomNumber, cpuTempDefencePoints, cpuTempLifePoints, userTempLifePoints, userTempDefencePoints }
+        block = damageDone.block;
+
+        return { randomNumber, cpuTempDefencePoints, cpuTempLifePoints, userTempLifePoints, userTempDefencePoints, block }
     };
 
     damageMath = (randomNumber, userTempDefencePoints, userTempLifePoints) => {
 
         let blockChance = (userTempDefencePoints / randomNumber) / 1.4;
-        let random = Math.random()
+        let random = Math.random();
 
         if (random > blockChance) {
             return {
                 userTempLifePoints : userTempLifePoints - randomNumber,
-                userTempDefencePoints : userTempDefencePoints
+                userTempDefencePoints : userTempDefencePoints,
+                block: false
             }
         } else {
-            return  { userTempDefencePoints : userTempDefencePoints, userTempLifePoints : userTempLifePoints }
+            return  { userTempDefencePoints : userTempDefencePoints, userTempLifePoints : userTempLifePoints, block: true }
         }
     };
 
@@ -170,12 +174,12 @@ class ActionBox extends Component {
   };
 
   actionLog = (attacker, damage, round) => {
-      let { actionLog, endGame, winner } = this.state;
+      let { actionLog, endGame, winner, block } = this.state;
 
       if (endGame) {
           actionLog.push(`End game, ${winner} wins!`);
       } else {
-          actionLog.push(`Round: ${round} - ${attacker} attacks for ${damage}`);
+          actionLog.push(`Round: ${round} - ${attacker} attacks for ${damage} ${block ? " - but it was blocked!" : ""}`);
       }
 
       this.setState({

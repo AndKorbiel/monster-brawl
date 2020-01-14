@@ -16,7 +16,7 @@ class ActionBox extends Component {
       cpuTempDefencePoints: 0,
       cpuTempLifePoints: 0,
         block: false,
-      actionLog: ["Prepare for brawl!"],
+      actionLog: [],
       endGame: false
     };
   }
@@ -24,8 +24,13 @@ class ActionBox extends Component {
   componentDidUpdate (prevProps) {
       if (this.props.gameMode != prevProps.gameMode) {
           this.setState({
-              actionLog: ["Prepare for brawl!"]
-          })
+              actionLog: []
+          });
+          if (this.props.gameMode === "preFight") {
+              setTimeout(()=>{
+                  this.startBrawl()
+              }, 10)
+          }
       }
   }
 
@@ -41,11 +46,9 @@ class ActionBox extends Component {
             userTempDefencePoints: userDefencePoints,
             userTempLifePoints: userLifePoints,
             cpuTempDefencePoints: cpuDefencePoints,
-            cpuTempLifePoints: cpuLifePoints
+            cpuTempLifePoints: cpuLifePoints,
+            round: 0
         });
-        // setInterval(() => {
-        //   this.playRound();
-        // }, 2000);
     };
 
   random = (min, max) => {
@@ -56,23 +59,24 @@ class ActionBox extends Component {
       let {round, endGame} = this.state;
       if (!endGame) {
 
-          let currentPlayer = this.setCurrentPlayer();
-          let calcDamage = this.calcDamage(currentPlayer);
-          round++;
+              let currentPlayer = this.setCurrentPlayer();
+              let calcDamage = this.calcDamage(currentPlayer);
+              round++;
 
-          this.setState({
-              attack: calcDamage.randomNumber,
-              round: round,
-              cpuTempLifePoints: calcDamage.cpuTempLifePoints,
-              cpuTempDefencePoints: calcDamage.cpuTempDefencePoints,
-              userTempLifePoints: calcDamage.userTempLifePoints,
-              userTempDefencePoints: calcDamage.userTempDefencePoints,
-              currentTurn: currentPlayer,
-              block: calcDamage.block
-          }, () => {
-              this.actionLog(this.state.currentTurn, this.state.attack, this.state.round);
-              this.winingConditionChecker()
-          });
+              this.setState({
+                  attack: calcDamage.randomNumber,
+                  round: round,
+                  cpuTempLifePoints: calcDamage.cpuTempLifePoints,
+                  cpuTempDefencePoints: calcDamage.cpuTempDefencePoints,
+                  userTempLifePoints: calcDamage.userTempLifePoints,
+                  userTempDefencePoints: calcDamage.userTempDefencePoints,
+                  currentTurn: currentPlayer,
+                  block: calcDamage.block
+              }, () => {
+                  this.actionLog(this.state.currentTurn, this.state.attack, this.state.round);
+                  this.winingConditionChecker()
+              });
+
       }
   };
 
@@ -151,10 +155,6 @@ class ActionBox extends Component {
               round: 0,
               attack: 0,
               currentTurn: ["player", "cpu"],
-              userTempDefencePoints: 0,
-              userTempLifePoints: 0,
-              cpuTempDefencePoints: 0,
-              cpuTempLifePoints: 0,
           }, ()=> {
               this.actionLog();
               setTimeout(()=>{
@@ -183,7 +183,7 @@ class ActionBox extends Component {
       if (endGame) {
           actionLog.push(`End game, ${winner} wins!`);
       } else {
-          actionLog.push(`Round: ${round} - ${attacker} attacks for ${damage} ${block ? " - but it was blocked!" : ""}`);
+          actionLog.push(`Round ${round}: ${attacker} attacks for ${damage} ${block ? " - but it was blocked!" : ""}`);
       }
 
       this.setState({
@@ -211,7 +211,7 @@ class ActionBox extends Component {
                                instruction={instruction} />
        )
     } else if (gameMode === "preFight") {
-      instruction = "Prepare for brawl...!";
+      instruction = "Brawl has started... Fight to survive!";
         return (
             <>
                 <GameInstructionsDisplay gameMode={gameMode}
@@ -219,7 +219,6 @@ class ActionBox extends Component {
                 <ActionBoxDisplay
                     round={round}
                     attack={this.playRound}
-                    startBrawl={this.startBrawl}
                     userAttackPoints={userAttackPoints}
                     userTempDefencePoints={userTempDefencePoints}
                     userTempLifePoints={userTempLifePoints}

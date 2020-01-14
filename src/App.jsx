@@ -10,13 +10,13 @@ class App extends Component {
       <div className="App">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-4">
+            <div className="col-sm-12 col-md-12 col-lg-4">
               <MonsterConfigurator />
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-12 col-md-12 col-lg-4">
               <ActionBox />
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-12 col-md-12 col-lg-4">
               <CpuMonsterGenerator />
             </div>
           </div>

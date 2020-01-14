@@ -10,19 +10,14 @@ const ActionBoxDisplay = props => {
       cpuAttackPoints,
       cpuTempDefencePoints,
       cpuTempLifePoints,
-      startBrawl,
       actionLog
   } = props;
 
   return (
       <div className="actionBox">
-          <h3>Round: {round}</h3>
-          <button onClick={startBrawl}>Start brawl</button>
-          <button onClick={attack}>Attack!</button>
-          <div>
-              {actionLog.map(el => <p>{el}</p>)}
-          </div>
-          <div className="row">
+          <h3>{round === 0 ? "Start the fight" : "Round: " + round}</h3>
+          <button className="btn-lg" onClick={attack}>Play next round</button>
+          <div className="row display-stats">
               <div className="col-md-6">
                   <p>Player</p>
                   <p>Attack: {userAttackPoints}</p>
@@ -35,6 +30,9 @@ const ActionBoxDisplay = props => {
                   <p>Defence: {cpuTempDefencePoints}</p>
                   <p>Life: {cpuTempLifePoints}</p>
               </div>
+          </div>
+          <div className="action-log">
+              {actionLog.map(el => <p>{el}</p>)}
           </div>
       </div>
   );

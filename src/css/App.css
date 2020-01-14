@@ -1,12 +1,92 @@
 .App {
   text-align: center;
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: rgba(40, 44, 52, 0.57);
+  min-height: 99vh;
+  padding-top: 100px;
   color: white;
   font-size: 16px;
 }
 
-h2,
-.h2 {
-  margin: 0;
+h1, .h1 {
+  font-size: 32px;
+  margin-bottom: 1.5em;
+}
+
+h2, .h2 {
+  font-size: 18px;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 24px;
+}
+
+.config, .gameInstructionsBox,
+.actionBox {
+  background-color: rgba(40, 44, 52, 0.57);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  border: 2px solid #1b1b1b;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px #0000009e;
+}
+
+.gameInstructionsBox, .actionBox {
+  max-width: none;
+}
+
+.gameInstructionsBox p {
+  font-weight: normal;
+}
+
+.config .look {
+  margin: 20px 0 20px 0;
+}
+
+.config .look img {
+  max-height: 250px;
+  max-width: 250px;
+}
+
+button {
+  text-transform: none;
+  background: #8e2202;
+  color: #e4e4e4;
+  border-radius: 3px;
+  padding: 5px 7px;
+  border: 1px solid #ab2337;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button:disabled {
+  border: 1px solid #515151;
+  background: #484848;
+}
+
+.display-stats {
+  background: rgba(0, 0, 0, 0.23);
+  margin: 15px 0;
+  padding: 10px 0;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 989px){
+  .config, .gameInstructionsBox,
+  .actionBox {
+    max-width: none;
+  }
 }

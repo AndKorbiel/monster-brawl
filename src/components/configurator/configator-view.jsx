@@ -25,14 +25,13 @@ const MonsterConfigDisplay = props => {
   } = props;
   return (
     <div className="monsterConfig">
-      <h2>Monster name: {name}</h2>
+        <h2>Monster name: <br /><span className="name">{name}</span></h2>
       <ChangeButtonDisplay
         gameMode={gameMode}
         methood={generateNewName}
         name={"generateNewName"}
         text={"Generate new name"}
       />
-      {gameMode === "Pre-config" ? <p>Please customize your Moonster</p> : ""}
       <div className="look">
         <ChangeButtonDisplay
           gameMode={gameMode}

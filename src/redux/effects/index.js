@@ -10,7 +10,7 @@ import {
 
 export const generateNewNameEffect = (value) => {
   return dispatch => {
-    fetch("https://random-word-api.herokuapp.com/word?key=9QQUWG3P&number=1")
+    fetch("https://random-word-api.herokuapp.com/word?key=MVWXNSGE&number=1")
       .then(res => res.json())
       .then(myJSON => {
         if (value === "user") {

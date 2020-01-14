@@ -46,7 +46,7 @@ class CpuMonsterGenerator extends Component {
     }
 
   initCpuMonster = () => {
-      let num = Math.floor(Math.random() * (2+ 1));
+      let num = Math.floor(Math.random() * (6+ 1));
       this.setState({
           ...this.state,
           cpuLookVersion: num

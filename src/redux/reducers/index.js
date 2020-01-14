@@ -12,7 +12,7 @@ const initialState = {
   gameMode: "Pre-config",
   monsterConfig: {
     name: "Moonster",
-    monsterImg: ["monster1.png", "monster2.png", "monster3.png"],
+    monsterImg: ["monster1.png", "monster2.png", "monster3.png", "monster4.png", "monster5.png", "monster6.png", "monster7.png"],
     lookVersion: 0,
     level: 1,
     attackPoints: 5,

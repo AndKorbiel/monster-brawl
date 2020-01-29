@@ -10,13 +10,13 @@ import {
 
 export const generateNewNameEffect = (value) => {
   return dispatch => {
-    fetch("https://random-word-api.herokuapp.com/word?key=MVWXNSGE&number=1")
+    fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=5tlss5fk37wzhgjb0yemzcskbgz2wjab501uv0s5kdvano1xa")
       .then(res => res.json())
       .then(myJSON => {
         if (value === "user") {
-            dispatch(generateNewUserName(myJSON))
+            dispatch(generateNewUserName(myJSON.word))
         } else {
-            dispatch(generateNewCpuName(myJSON))
+            dispatch(generateNewCpuName(myJSON.word))
         }
 
       })

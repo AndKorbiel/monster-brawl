@@ -26,6 +26,7 @@ p {
 
 .name {
   font-size: 24px;
+  text-transform: capitalize;
 }
 
 .config, .gameInstructionsBox,

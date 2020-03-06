@@ -1,16 +1,26 @@
 import React, { Component } from "react";
-import Main from "./components/main";
-import Sidebar from './components/side';
-import "./App.css";
+import MonsterConfigurator from "./components/configurator/configurator-container";
+import CpuMonsterGenerator from "./components/cpu-monsters-generator/cpu-monsters-container";
+import "./css/App.css";
+import ActionBox from "./components/actionBox/action-box-container";
 
 class App extends Component {
-
   render() {
-
     return (
       <div className="App">
-        <Main/>
-        <Sidebar/>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-sm-12 col-md-12 col-lg-4">
+              <MonsterConfigurator />
+            </div>
+            <div className="col-sm-12 col-md-12 col-lg-4">
+              <ActionBox />
+            </div>
+            <div className="col-sm-12 col-md-12 col-lg-4">
+              <CpuMonsterGenerator />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

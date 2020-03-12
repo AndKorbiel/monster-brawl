@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bc1335b26ca9e49142a99f5a10f1c805",
+    "revision": "fe87527d8e26e2717ce38e1490151bbd",
     "url": "/monster-brawl/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monster-brawl/static/css/2.89f067aa.chunk.css"
   },
   {
-    "revision": "32448a712c3758eff6f5",
+    "revision": "4d96b0a51f6a8ebbe92d",
     "url": "/monster-brawl/static/css/main.769e093b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monster-brawl/static/js/2.502e34c4.chunk.js"
   },
   {
-    "revision": "32448a712c3758eff6f5",
-    "url": "/monster-brawl/static/js/main.100721f1.chunk.js"
+    "revision": "4d96b0a51f6a8ebbe92d",
+    "url": "/monster-brawl/static/js/main.c94a1b90.chunk.js"
   },
   {
     "revision": "d3fa3aeddd9bebb182d2",

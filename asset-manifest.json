@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/monster-brawl/static/css/main.769e093b.chunk.css",
-    "main.js": "/monster-brawl/static/js/main.100721f1.chunk.js",
-    "main.js.map": "/monster-brawl/static/js/main.100721f1.chunk.js.map",
+    "main.js": "/monster-brawl/static/js/main.c94a1b90.chunk.js",
+    "main.js.map": "/monster-brawl/static/js/main.c94a1b90.chunk.js.map",
     "runtime-main.js": "/monster-brawl/static/js/runtime-main.816dc3f8.js",
     "runtime-main.js.map": "/monster-brawl/static/js/runtime-main.816dc3f8.js.map",
     "static/css/2.89f067aa.chunk.css": "/monster-brawl/static/css/2.89f067aa.chunk.css",
     "static/js/2.502e34c4.chunk.js": "/monster-brawl/static/js/2.502e34c4.chunk.js",
     "static/js/2.502e34c4.chunk.js.map": "/monster-brawl/static/js/2.502e34c4.chunk.js.map",
     "index.html": "/monster-brawl/index.html",
-    "precache-manifest.7953e46f5e2e7f63cf2d2600f00a21bc.js": "/monster-brawl/precache-manifest.7953e46f5e2e7f63cf2d2600f00a21bc.js",
+    "precache-manifest.7921dd533ebcfd549a2bc8de4e90c22f.js": "/monster-brawl/precache-manifest.7921dd533ebcfd549a2bc8de4e90c22f.js",
     "service-worker.js": "/monster-brawl/service-worker.js",
     "static/css/2.89f067aa.chunk.css.map": "/monster-brawl/static/css/2.89f067aa.chunk.css.map",
     "static/css/main.769e093b.chunk.css.map": "/monster-brawl/static/css/main.769e093b.chunk.css.map"
@@ -19,6 +19,6 @@
     "static/css/2.89f067aa.chunk.css",
     "static/js/2.502e34c4.chunk.js",
     "static/css/main.769e093b.chunk.css",
-    "static/js/main.100721f1.chunk.js"
+    "static/js/main.c94a1b90.chunk.js"
   ]
 }

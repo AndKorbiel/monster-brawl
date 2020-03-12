@@ -1,0 +1,16 @@
+body {
+    background-image: url("./img/bg-image.jpg");
+}
+
+.info-bar {
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+    background: #282c34;
+    color: #888888;
+    margin-top: -9px;
+}
+
+.info-bar a {
+    color: #888888;
+}

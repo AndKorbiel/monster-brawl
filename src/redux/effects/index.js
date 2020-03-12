@@ -10,7 +10,7 @@ import {
 
 export const generateNewNameEffect = (value) => {
   return dispatch => {
-    fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=5tlss5fk37wzhgjb0yemzcskbgz2wjab501uv0s5kdvano1xa")
+    fetch("https://api.wordnik.com/v4/words.json/randomWord?api_key=5tlss5fk37wzhgjb0yemzcskbgz2wjab501uv0s5kdvano1xa")
       .then(res => res.json())
       .then(myJSON => {
         if (value === "user") {
